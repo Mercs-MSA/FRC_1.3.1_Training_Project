@@ -65,7 +65,7 @@ public class Intake extends SubsystemBase {
    * 
    * @return Motor shaft location in rotations as a double
    */
-  private double getIntakeMotorPosition() {
+  public double getIntakeMotorPosition() {
     return intakeMotor.getPosition().getValueAsDouble();
   }
 
@@ -74,7 +74,7 @@ public class Intake extends SubsystemBase {
    * 
    * @param pos Intake absolute position to set at the current physical location as double in units of Rotations
    */
-  private void setIntakeAbsolutePosition(double pos) {
+  public void setIntakeAbsolutePosition(double pos) {
       intakeMotor.setPosition(pos);
   }
 
@@ -82,11 +82,7 @@ public class Intake extends SubsystemBase {
    * This is a method for causing the intake motor to run; its intended for internal or command usage only
    * 
    */
-  private void startIntakeMotor() {
-    // WARNING!! 
-    // DO NOT USE THIS FUNCTION DIRECTLY!!
-    // INSTEAD USE: CommandOverrideIntakeStart
-    // intakeMotor.setControl(intakeMotor_dutyCycleOut.withOutput(-IntakeConstants.kIntakeMotorSpeed));
+  public void setIntakeMotorRunningForward() {
     intakeMotor.setControl(intakeMotor_voltageVelocity.withVelocity(IntakeConstants.kIntakeMotorSpeed));
   }
 
@@ -94,11 +90,7 @@ public class Intake extends SubsystemBase {
    * This is a method for causing the intake motor to run in reverse; its intended for internal or command usage only
    * 
    */
-  private void reverseIntakeMotor() {
-    // WARNING!! 
-    // DO NOT USE THIS FUNCTION DIRECTLY!!
-    // INSTEAD USE: CommandOverrideIntakeStart
-    // intakeMotor.setControl(intakeMotor_dutyCycleOut.withOutput(IntakeConstants.kIntakeMotorSpeed));
+  public void setIntakeMotorRunningReverse() {
     intakeMotor.setControl(intakeMotor_voltageVelocity.withVelocity(-IntakeConstants.kIntakeMotorSpeed));
   }
 
@@ -106,10 +98,7 @@ public class Intake extends SubsystemBase {
    * This is a method for stopping the intake motor; its intended for internal or command usage only
    * 
    */
-  private void stopIntakeMotor() {
-    // WARNING!! 
-    // DO NOT USE THIS FUNCTION DIRECTLY!!
-    // INSTEAD USE: CommandOverrideIntakeStop
+  public void setIntakeMotorStop() {
     intakeMotor.setControl(new NeutralOut());
   }
 
@@ -128,10 +117,10 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putNumber("intake rpm", intakeMotor.getVelocity().getValueAsDouble());
   }
   
-      /**
-     * This is method helps to tune the amount of CAN bus traffic to the minimum necessary to operate the motor. This prevents overloading the CAN bus.
-     * 
-     */
+  /**
+   * This is method helps to tune the amount of CAN bus traffic to the minimum necessary to operate the motor. This prevents overloading the CAN bus.
+   * 
+   */
   public void optimization_for_CAN() {
     StatusSignal<Double> m_IntakeMotor_canbus1signal1 = intakeMotor.getPosition();
     StatusSignal<Double> m_IntakeTemp_canbus1signal1 = intakeMotor.getDeviceTemp();
