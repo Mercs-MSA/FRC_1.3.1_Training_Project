@@ -35,9 +35,9 @@ public class Arm extends SubsystemBase{
         armMotor = new TalonFX(ArmConstants.motorID, "rio");
         CANcoderConfiguration armEncoderConfig = new CANcoderConfiguration();
         armEncoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
-        configArmMotor.Slot0.kP = ArmConstants.leaderKP;
-        configArmMotor.Slot0.kI = ArmConstants.leaderKI;
-        configArmMotor.Slot0.kD = ArmConstants.leaderKD;
+        configArmMotor.Slot0.kP = ArmConstants.kP;
+        configArmMotor.Slot0.kI = ArmConstants.kI;
+        configArmMotor.Slot0.kD = ArmConstants.kD;
         configArmMotor.Voltage.PeakForwardVoltage = ArmConstants.fwdVolt;
         configArmMotor.Voltage.PeakReverseVoltage  = ArmConstants.revVolt;;
         configArmMotor.MotorOutput.Inverted =
